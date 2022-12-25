@@ -16,7 +16,8 @@ type course struct {
 
 func main() {
 	fmt.Println("Welcome to json video")
-	EncodeJson()
+	// EncodeJson()
+	DecodeJson()
 }
 
 func EncodeJson(){
@@ -40,4 +41,47 @@ func EncodeJson(){
 	}
 	// %s is used to print the string
 	fmt.Printf("%s\n",finalJson)
+}
+
+
+// byte is the data type which we get after reading the data which is comming from web and then we need to convert the byte to json then we use this process
+func DecodeJson(){
+	jsonDataFromWeb := []byte(`
+	{
+		"coursename": "MERN Bootcamp",   
+		"Price": 199,
+		"website": "LearnCodeOnline.in", 
+		"tags": ["web-dev","js"]
+	}
+	`)
+
+	var lcoCourse course
+
+	// it will validate whether the passed input is a valid json or not it returns a boolean value
+	checkValid := json.Valid(jsonDataFromWeb)
+
+
+	if checkValid{
+		fmt.Println("JSON was valid")
+		// decoding the json data format to the struct format using the Unmarshal function
+		// first is the jsondata and in the second we are passing the reference of the struct type variable
+		json.Unmarshal(jsonDataFromWeb,&lcoCourse)
+		// here we are using #v for printing the struct in the default format
+		fmt.Printf("%#v\n",lcoCourse)
+	}else{
+		fmt.Println("JSON WAS NOT VALID")
+	}
+
+
+	// some cases where you just want to add data to key value
+
+	// the key will be a string but the value we cannot determine hence we can put interface in that place
+	var myOnlineData map[string]interface{}
+
+	json.Unmarshal(jsonDataFromWeb,&myOnlineData)
+	fmt.Printf("%#v\n",myOnlineData)
+
+	for k, v := range myOnlineData{
+		fmt.Printf("Key is %v and value is %v and type is: %T\n",k,v,v)
+	}
 }
