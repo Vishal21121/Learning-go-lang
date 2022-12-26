@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -35,7 +36,26 @@ func (c *Course) isEmpty() bool {
 }
 
 func main() {
+	fmt.Println("API - LearnCodeOnline.in")
+	r := mux.NewRouter()
 
+	// seeding
+	courses = append(courses, Course{CourseID:"2",CourseName: "ReactJS",CoursePrice: 299, Author: &Author{Fullname: "Hitesh Choudhary", Website: "lco.dev"}})
+
+	courses = append(courses, Course{CourseID:"4",CourseName: "MERN Stack",CoursePrice: 199, Author: &Author{Fullname: "Hitesh Choudhary", Website: "go.dev"}})
+
+	// routing
+	// here we are listening the route / and method is GET
+	r.HandleFunc("/",serverHome).Methods("GET")
+	r.HandleFunc("/courses",getAllCourses).Methods("GET")
+	r.HandleFunc("/courses/{id}",getOneCourse).Methods("GET")
+	r.HandleFunc("/courses",createOneCourse).Methods("POST")
+	r.HandleFunc("/courses/{id}",updateOneCourse).Methods("PUT")
+	r.HandleFunc("/courses/{id}",deleteOneCourse).Methods("DELETE")
+
+	//listen to a port
+	// log.fatal will take care if the server breaks then it will show the error
+	log.Fatal(http.ListenAndServe(":4000",r))
 }
 
 func serverHome(w http.ResponseWriter, r *http.Request) {
@@ -84,6 +104,9 @@ func createOneCourse(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("No data inside JSON")
 		return
 	}
+
+	// TODO: check only if title is duplicate
+	// loop, title matches with the course.coursename, JSON reponse
 
 	// generate unique id, string
 	// append course into courses
