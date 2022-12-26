@@ -96,3 +96,28 @@ func createOneCourse(w http.ResponseWriter, r *http.Request) {
 	return
 
 }
+
+func updateOneCourse(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Create one course")
+	w.Header().Set("Cotent-Type", "application/json")
+
+	// first grab the id from the req
+	params := mux.Vars(r)
+
+	// loop through slice and get the course using the id  and then remove that course and then add that course with the ID provided in the params.
+
+	for index, course := range courses {
+		if course.CourseID == params["id"] {
+			courses = append(courses[:index], courses[index+1:]...)
+			var course Course
+			// Decode will decode the value based on the struct Course and it will be placed in course
+			_ = json.NewDecoder(r.Body).Decode(&course)
+			course.CourseID = params["id"]
+			courses = append(courses, course)
+			json.NewEncoder(w).Encode(course)
+			return
+		}
+	}
+	// TODO: send a reponse when id is not found
+
+}
