@@ -3,7 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"net/http"
+	"strconv"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -28,7 +31,7 @@ var courses []Course
 
 // it will return true or false depending upon the below condition
 func (c *Course) isEmpty() bool {
-	return c.CourseID == "" && c.CourseName == ""
+	return c.CourseName == ""
 }
 
 func main() {
@@ -62,4 +65,34 @@ func getOneCourse(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode("Now course found with the given id")
 	return
+}
+
+func createOneCourse(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Create one course")
+	w.Header().Set("Cotent-Type", "application/json")
+
+	// What is body is empty
+	if r.Body == nil {
+		json.NewEncoder(w).Encode("Please send some data")
+	}
+
+	// what about - {}
+
+	var course Course
+	_ = json.NewDecoder(r.Body).Decode(&course)
+	if course.isEmpty() {
+		json.NewEncoder(w).Encode("No data inside JSON")
+		return
+	}
+
+	// generate unique id, string
+	// append course into courses
+
+	rand.Seed(time.Now().UnixNano())
+	course.CourseID = strconv.Itoa(rand.Intn(100))
+	// courses is the fake db which is a slice
+	courses = append(courses, course)
+	json.NewEncoder(w).Encode(course) // if we send the encoder method then the return is automatically executed
+	return
+
 }
