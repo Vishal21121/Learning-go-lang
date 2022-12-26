@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/vishal21121/mongoapi/model"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -40,4 +41,19 @@ func init() {
 
 	// collection instance is ready then
 	fmt.Println("Collection instance is ready")
+}
+
+// MONGODB helpers
+
+// insert 1 record
+
+func insertOneMovie(movie model.Netflix) {
+	inserted, err := collection.InsertOne(context.Background() ,movie)
+	if err != nil {
+		// it is the more controlled version of the panic
+		log.Fatal(err)
+	}
+	// whenever we store something in database it gets a id and then this id is returned as a success when InsertOne operation is performed
+	fmt.Println("Inserted 1 movie in db with id:",inserted.InsertedID)
+
 }
