@@ -98,7 +98,7 @@ func createOneCourse(w http.ResponseWriter, r *http.Request) {
 }
 
 func updateOneCourse(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Create one course")
+	fmt.Println("Update one course")
 	w.Header().Set("Cotent-Type", "application/json")
 
 	// first grab the id from the req
@@ -120,4 +120,21 @@ func updateOneCourse(w http.ResponseWriter, r *http.Request) {
 	}
 	// TODO: send a reponse when id is not found
 
+}
+
+func deleteOneCourse(w http.ResponseWriter, r *http.Request){
+	fmt.Println("Delete one course")
+	w.Header().Set("Content-Type","application/json")
+
+	params := mux.Vars(r)
+
+	//loop, id, remove (index, index+1)
+	for index, course := range courses{
+		if course.CourseID == params["id"]{
+			courses = append(courses[:index],courses[index+1:]...)
+			break
+		}
+	}
+	json.NewEncoder(w).Encode("This id is now deleted from database")
+	return
 }
