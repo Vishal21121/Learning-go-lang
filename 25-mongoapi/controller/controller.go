@@ -6,6 +6,8 @@ import (
 	"log"
 
 	"github.com/vishal21121/mongoapi/model"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -56,4 +58,17 @@ func insertOneMovie(movie model.Netflix) {
 	// whenever we store something in database it gets a id and then this id is returned as a success when InsertOne operation is performed
 	fmt.Println("Inserted 1 movie in db with id:",inserted.InsertedID)
 
+}
+
+// update 1 record
+func updateOneMovie(movieId string){
+	// ObjectIDFromHex it converts the string to the data type accetable by mongodb
+	id , _ :=	primitive.ObjectIDFromHex(movieId)
+	filter := bson.M{"_id":id}
+	update := bson.M{"$set":bson.M{"Watched":true}}
+	result , err := collection.UpdateOne(context.Background(),filter,update)
+	if err != nil{
+		log.Fatal(err)
+	}
+	fmt.Println("modified count",result.ModifiedCount)
 }
