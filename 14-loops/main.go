@@ -5,7 +5,7 @@ import "fmt"
 func main() {
 	fmt.Println("Welcome to loops in golang")
 
-	days := []string{"Sunday","Tuesday","Wednesday","Friday","Saturday"}
+	days := []string{"Sunday", "Tuesday", "Wednesday", "Friday", "Saturday"}
 
 	fmt.Println(days)
 
@@ -25,7 +25,7 @@ func main() {
 	// }
 
 	rougueValue := 1
-
+	//  in go we don't have while loop but we can use while loop in the below way
 	for rougueValue < 10 {
 
 		if rougueValue == 2 {
@@ -39,14 +39,13 @@ func main() {
 			continue
 		}
 
-		fmt.Println("Value is: ",rougueValue)
-		// we cannot perform ++roughVakue as prefix increment is not allowed in go lang
+		fmt.Println("Value is: ", rougueValue)
+		// we cannot perform ++roughValue as prefix increment is not allowed in go lang
 		rougueValue++
 	}
 
-// here we are creating the label and we can use this send the control using the keyword goto
+	// here we are creating the label and we can use this send the control using the keyword goto
 lco:
 	fmt.Println("Jumping to github.com")
-
 
 }

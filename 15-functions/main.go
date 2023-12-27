@@ -15,6 +15,7 @@ func main() {
 
 }
 
+//  int after ) is the return type of this function
 func adder(valOne int, valTwo int) int {
 	return valOne + valTwo
 }
@@ -22,6 +23,7 @@ func adder(valOne int, valTwo int) int {
 // values ...int -> it will take as many values you will provide
 // after ) is the return type
 // we can return two different data types but we need to mention them within ()
+// function like proAdder which can take multiple variables is known as variadic function
 func proAdder(values ...int) (int, string) {
 	total := 0
 	for _, val := range values {

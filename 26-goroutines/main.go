@@ -6,7 +6,10 @@ import (
 	"sync"
 )
 
-var wg sync.WaitGroup
+var signals = []string{"test"}
+
+var wg sync.WaitGroup // it should be created as pointer
+var mut sync.Mutex		// it should be created as pointer
 
 func main() {
 	// go fires the thead which is responsible for executing the greeter method with Hello as paramter. But we never told it to come back or we never waited for it to come back.
@@ -28,6 +31,7 @@ func main() {
 	}
 	// it prevents the main function from exiting till all the go rountines have done their execution.
 	wg.Wait()
+	fmt.Println(signals)
 }
 
 // func greeter(str string) {
@@ -45,5 +49,8 @@ func getStatusCode(endpoint string) {
 	if err != nil {
 		fmt.Println("OOPS in endpoint")
 	}
+	mut.Lock()
+	signals = append(signals, endpoint)
+	mut.Unlock()
 	fmt.Printf("%d status code for %s\n", response.StatusCode, endpoint)
 }

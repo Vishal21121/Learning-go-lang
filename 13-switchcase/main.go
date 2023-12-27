@@ -12,16 +12,17 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 	// here 6 is the range and it is not included hence we have added 1 to reach to 6
 	diceNumber := rand.Intn(6) + 1
-	fmt.Println("Value of dice is ",diceNumber)
+	fmt.Println("Value of dice is ", diceNumber)
 
 	// fallthrough is used to execute that case and just the next case.
-	switch diceNumber{
+	switch diceNumber {
 	case 1:
 		fmt.Println("Dice value is 1 and you can open")
 	case 2:
 		fmt.Println("You can move 2 spot")
 	case 3:
 		fmt.Println("You can move to 3 spot")
+		// like other languages the cases below a specific case does not get executed and for doing that we use the keyword "fallthrough" which executes just the below case. for ex: if case 4 is matched then fallthrough ensures execution of case 5
 		fallthrough
 	case 4:
 		fmt.Println("You can move to 4 spot")

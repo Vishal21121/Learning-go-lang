@@ -27,7 +27,7 @@ func main() {
 	fmt.Printf("The variable is of the type: %T \n",floatVal)
 
 	// default values and some aliases
-	var anotherVariable int
+	var anotherVariable int // default value is 0
 	var anotherVariable1 string
 	fmt.Println(anotherVariable)
 	fmt.Println("the value of the string is:",anotherVariable1)

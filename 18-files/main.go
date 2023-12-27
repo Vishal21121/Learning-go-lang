@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 )
 
@@ -21,11 +20,11 @@ func main() {
 	checkNilErr(err)
 
 	// writeString function return the length which it has wrote
-	length, err := io.WriteString(file,content)
+	length, err := io.WriteString(file, content)
 
 	checkNilErr(err)
 
-	fmt.Println("Length is :",length)
+	fmt.Println("Length is :", length)
 
 	// we use defer in file.close() as we want it to get executed at last even if we write before other statements
 	defer file.Close()
@@ -33,18 +32,17 @@ func main() {
 	readFile("./mylcogofile.txt")
 }
 
-func readFile(filename string){
+func readFile(filename string) {
 	// whatever we gonna read is gonna be in byte
-	databyte , err  := ioutil.ReadFile(filename)
+	databyte, err := os.ReadFile(filename)
 
 	checkNilErr(err)
 
-	fmt.Println("Text data inside the file is \n",string(databyte))
-
+	fmt.Println("Text data inside the file is \n", string(databyte))
 }
 
-func checkNilErr(err error){
-	if err != nil{
+func checkNilErr(err error) {
+	if err != nil {
 		panic(err)
 	}
 }

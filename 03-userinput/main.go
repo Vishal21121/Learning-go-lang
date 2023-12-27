@@ -19,7 +19,7 @@ func main() {
 	// we will read until we get the \n means enter
 	
 	// if we want to store the error then it will get stored in the variable err
-	// if everyting works fine then it will be stored in inpur and if there is any error then it will get stored in the varible err
+	// if everyting works fine then it will be stored in input and if there is any error then it will get stored in the varible err
 	// input, err := reader.ReadString('\n')
 
 	// if we want to store error and we do not want input then we use _ in place of input and err inorder to get the error

@@ -7,13 +7,13 @@ func main() {
 
 	// no inheritance in go lang; no super or no parent exists in go
 
-	vishal := User{"Vishal","vishal@gmail.com",true,24}
+	vishal := User{"Vishal", "vishal@gmail.com", true, 24}
 	fmt.Println(vishal)
 
-	// this will print the details with the fields created in the struct
-	fmt.Printf("Vishal details are: %+v",vishal)
+	// %+v will print the details with the fields created in the struct
+	fmt.Printf("Vishal details are: %+v\n", vishal)
 
-	fmt.Printf("Name is: %v and email is: %v",vishal.Name,vishal.Email)
+	fmt.Printf("Name is: %v and email is: %v", vishal.Name, vishal.Email)
 
 }
 
